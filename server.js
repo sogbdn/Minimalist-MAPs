@@ -39,9 +39,6 @@ app.use(express.static("public"));
 app.use("/api/users", usersRoutes(knex));
 
 // Home page
-app.get("/hey", (req, res) => {
-  res.send("Hey Back!");
-});
 
 
 
