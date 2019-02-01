@@ -1,0 +1,20 @@
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.topmenu {
+  margin-top: 0;
+  width: 100%;
+  color: darkgray;
+  position: fixed;
+  height: 20px;
+  z-index: 10;
+}
+
+#map {
+  height: 90%;
+}
