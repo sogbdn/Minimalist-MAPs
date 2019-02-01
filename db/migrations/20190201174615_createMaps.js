@@ -4,7 +4,7 @@ exports.up = function (knex, Promise) {
   return knex.schema.createTable("maps", table => {
     table.increments("id").primary().unsigned();
     table.string("name").notNull();
-    table.text("description");
+    table.text("description");// text is a sentence
     table.float("lat");
     table.float("lng");
     table.integer("zoom");
@@ -14,7 +14,5 @@ exports.up = function (knex, Promise) {
 };
 
 exports.down = function (knex, Promise) {
-
   return knex.schema.dropTable("maps");
-
 };
