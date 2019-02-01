@@ -1,5 +1,6 @@
 
 exports.seed = function (knex, Promise) {
+  console.log("seeding markers");
   // Deletes ALL existing entries
   return knex('markers').del()
     .then(function () {

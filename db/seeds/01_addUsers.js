@@ -1,4 +1,5 @@
 exports.seed = function (knex, Promise) {
+  console.log("seedings users");
   // Deletes ALL existing entries
   return knex('users').del()
     // Inserts seed entries
