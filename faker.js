@@ -5,6 +5,7 @@ zooms = []
 names = []
 lats = []
 longs = []
+desc = []
 function createfakezooms (num){
 
   for (let i=0; num > i; i++){
@@ -47,5 +48,16 @@ function createlongs (num){
 
 createlongs(10);
 console.log(lats)
+
+function desctext (num){
+  for (i=0; num > i; i++){
+  let randomDescr = faker.lorem.text()
+  desc.push(randomDescr);
+}
+}
+
+desctext(10);
+console.log(desc);
+
 
 
