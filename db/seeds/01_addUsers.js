@@ -4,9 +4,12 @@ exports.seed = function (knex, Promise) {
     // Inserts seed entries
     .then(function () {
       return Promise.all([
-        knex('users').insert({ name: 'Alice' }),
-        knex('users').insert({ name: 'Jacob' }),
-        knex('users').insert({ name: 'Franny' }),
-      ]);
-    });
+        knex.raw('ALTER SEQUENCE users_id_seq RESTART WITH 1'),
+        Promise.all([
+          knex('users').insert({ name: 'Alice' }),
+          knex('users').insert({ name: 'Jacob' }),
+          knex('users').insert({ name: 'Franny' }),
+        ])
+      ])
+    })
 };
