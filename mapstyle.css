@@ -17,4 +17,5 @@ html, body {
 
 #map {
   height: 90%;
+  margin-bottom:0;
 }
