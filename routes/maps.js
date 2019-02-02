@@ -5,6 +5,20 @@ const router = express.Router();
 
 module.exports = (knex) => {
 
+  router.get('/allmaps', (req, res) => {
+    res.render('allmaps.html');
+  });
+
+
+
+  router.get('/createmaps', (req, res) => {
+    res.render('createmap.html');
+  });
+
+
+
+
+
   router.get("/", (req, res) => {
     knex
       .select("*")
