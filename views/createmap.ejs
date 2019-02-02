@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+#map {
+  
+  margin-top: 0em;
+ 
+}
+
+.mapcontainer {
+  margin-top: 0em;
+  width: 100%;
+  height: 100%;
+
+}
+</style>
+
+    <!-- commented out all the embeded style and script imports that came supplied in the original lighthouse files
+      
+      <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
+
+    <!-- <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script> -->
+
+    <!-- Optional JavaScript for Bootstrap components -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+    <script src="../public/styles/googleapi.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  </head>
+
+  <body>
+      <% include ./partials/header %>
+<section class="main body"> <!-- this is doing weird jumpy things on the windos stretch--- evne though it's set to container and not container-fluid. needs investigation-->
+<div class="container"> 
+    <div class="row">
+        <div class="col-8" ><div class="mapcontainer" id="map">
+        </div></div>
+        <div class="col-4"> 
+            <form class="needs-validation" novalidate>
+                <div class="form-row">
+                    <div class="mapnamearea"> 
+                    <label for="validationTooltip01">Map Name</label>
+                    <input type="text" class="form-control" id="validationTooltip01" placeholder="Name your Map"  required>
+                    <small id="nameHelp" class="form-text text-muted">Please limit name to 15 characters</small>
+                    <div class="valid-tooltip">
+                      Looks good!
+                   
+                  </div>
+                  </div>
+                  <div class="mapdescriptionarea">
+                    <label for="validationTooltip02">Map Description</label>
+                    <input type="text" class="form-control" id="validationTooltip02" placeholder="Add Map Description" required>
+                    <div class="valid-tooltip">
+                      Looks good!
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit form</button>
+                </form>
+      </div>
+</div>
+</section>
+
+
+
+<footer></footer>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdfEfemoHEi51ay3MMzb0RhMHv3CLVFJU&callback=initMap">
+        </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script>
+</script>
+  </body>
+</html>
