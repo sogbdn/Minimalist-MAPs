@@ -1,18 +1,20 @@
 "use strict";
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 module.exports = (knex) => {
 
-  router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("users")
-      .then((results) => {
-        res.json(results);
-    });
+  //Post to login to save a cookie
+  router.post("/login/:id", (request, response) => {
+    request.session.user_id = request.params.id;
+    response.redirect("/");
   });
+
+
+
+
+
 
   return router;
 }
