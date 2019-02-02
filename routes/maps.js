@@ -12,7 +12,7 @@ module.exports = (knex) => {
 
 
   router.get('/createmaps', (req, res) => {
-    res.render('createmap.html');
+    res.render('createmap');
   });
 
 
