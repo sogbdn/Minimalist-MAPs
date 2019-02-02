@@ -41,6 +41,8 @@ app.use("/api/users", usersRoutes(knex));
 
 app.use("/api/maps", mapsRoutes(knex));
 
+//these are the routes i'm setting and these are the routes i'm taking
+
 // Home page
 
 
