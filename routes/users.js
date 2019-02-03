@@ -6,10 +6,20 @@ const router = express.Router();
 module.exports = (knex) => {
 
   //Post to login to save a cookie
-  router.post("/login/:id", (request, response) => {
-    request.session.user_id = request.params.id;
-    response.redirect("/");
+  router.post("/login/:id", (req, res) => {
+    req.session.user_id = req.params.id;
+    res.redirect("/createmap.html");
   });
+
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+  });
+
+
+
+
+
 
 
 
