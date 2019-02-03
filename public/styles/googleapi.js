@@ -28,6 +28,7 @@
         });
 
         // This event listener will call addMarker() when the map is clicked.
+        //This has been set to dblclick, but dblclick also triggers a zoom in, so separating out these actions will be necessary. but i want to save the single click for testing the info windows
         map.addListener('click', function(event) {
           addMarker(event.latLng);
           
@@ -44,21 +45,51 @@
           map: map,
           title: 'Hello World!',
           label: labels[labelIndex++ % labels.length],
-          draggable:true,
+          //draggable:true,
           
         });
         markers.push(marker);
         console.log(markers);
         console.log(location.lat());
         console.log(location.lng());
+
+        var contentString = `<div id="content"><p>apples apples apples<p></div>`;
+
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+        console.log(clicking);
+      });
+
       }
+
+      
+  // // Info Window With Click 
+	// google.maps.event.addListener(marker, 'click', function() {
+	// 	infowindow.open(map,marker);
+	// });
+
+	// // Info Window Without Click 
+	// infowindow.open(map,marker);
+
+
 
       // Sets the map on all markers in the array.
       function setMapOnAll(map) {
         for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(map);
+          // markers[i].addListener('click', function() {
+          //   //infowindow.open(map, marker);
+          //   console.log('clicking')
+          // });
         }
+        
       }
+
+      /*a similar loop has to be made for all the info windows? although looking at the object attached to each marker, it seems like you save the title of the marker inside there...*/
 
       var reloadmap = document.getElementById('reloadmap');
       var hidemap = document.getElementById('hidemap');
@@ -79,7 +110,7 @@
       console.log('clicking')
     });
 
-    function deleteMarkers() {s
+    function deleteMarkers() {
       clearMarkers();
       //the clearing of the marker isn't working YET. so when you delete the map the letters aren't yet resetting
       markers = [];
