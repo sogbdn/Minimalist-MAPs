@@ -30,30 +30,13 @@ module.exports = (knex) => {
     knex('maps')
       .join('users')
       .select('*')
-      .where('maps.user_id' = 'users.id')
+      .where(user_id = id)
       .then((results) => {
         res.render('/mymaps.html');
       });
 
   })
 
-};
-
-
-
-
-
-
-
-
-router.get("/", (req, res) => {
-  knex
-    .select("*")
-    .from("maps")
-    .then((results) => {
-      res.json(results);
-    });
-});
-
-return router;
+  return router;
 }
+
