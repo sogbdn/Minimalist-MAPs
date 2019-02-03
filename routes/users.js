@@ -7,8 +7,15 @@ module.exports = (knex) => {
 
   //Post to login to save a cookie
   router.post("/login/:id", (req, res) => {
-    req.session.user_id = req.params.id;
-    res.redirect("/createmap.html");
+    let name = req.body.username;
+    if (name  === req.params.name) {
+      res.redirect("/createmap.html");
+    } else {
+      knex  
+      .insert({name: userName})
+      .into ('users')
+      res.redirect('/createmap')
+    }
   });
 
   router.post("/logout", (req, res) => {
