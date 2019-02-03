@@ -6,21 +6,14 @@ const router = express.Router();
 module.exports = (knex) => {
 
   router.get('/allmaps', (req, res) => {
+    knex
+      .select("*")
+      .from("maps")
+      .then((results) => {
+        res.json(results);
+      });
     res.render('allmaps.html');
   });
-
-  router.post('/allmaps/view', (req, res) => {
-
-  });
-
-  router.post('/allmaps/edit', (req, res) => {
-
-  });
-
-
-
-
-
 
   router.get('/createmaps', (req, res) => {
     res.render('createmap.html');
@@ -32,22 +25,28 @@ module.exports = (knex) => {
   });
 
 
-
-
-
-
-
-
-
-
-  router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("maps")
+  router.get('mymaps', (req, res) => {
+    knex('maps')
+      .join('users')
+      .select('*')
+      .where('maps.user_id' = 'users.id')
       .then((results) => {
-        res.json(results);
+        res.render('/mymaps.html');
       });
-  });
 
-  return router;
+  })
+
+};
+
+
+router.get("/", (req, res) => {
+  knex
+    .select("*")
+    .from("maps")
+    .then((results) => {
+      res.json(results);
+    });
+});
+
+return router;
 }
