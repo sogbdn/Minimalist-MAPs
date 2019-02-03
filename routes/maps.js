@@ -12,41 +12,31 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
       });
-    res.render('allmaps.html');
-  });
+    res.render('allmaps');
+  })
 
   router.get('/createmaps', (req, res) => {
-    res.render('createmap.html');
-  });
+    res.render('createmap');
+  })
 
   router.post('/createmaps', (req, res) => {
-    // see how find a new map with google map?
-    res.redirect('page_with_newmap');
-  });
+    knex
+      .insert({ name: req.body["Map Name"], description: req.body["Map Description"] })
+      .into("maps")
+    res.redirect('mymaps');
+  })
 
 
-  router.get('mymaps', (req, res) => {
+  router.get('/mymaps', (req, res) => {
     knex('maps')
       .join('users')
       .select('*')
-      .where('maps.user_id' = 'users.id')
+      .where(user_id = id)
       .then((results) => {
-        res.render('/mymaps.html');
+        res.render('mymaps');
       });
 
   })
 
-};
-
-
-router.get("/", (req, res) => {
-  knex
-    .select("*")
-    .from("maps")
-    .then((results) => {
-      res.json(results);
-    });
-});
-
-return router;
+  return router;
 }
