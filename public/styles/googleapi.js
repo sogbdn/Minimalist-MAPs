@@ -17,12 +17,6 @@
       var markers = [];
       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       let labelIndex = 0;
-      var infowindow
-      var marker
-    var messagewindow;
-
-
-    
 
       function initMap() {
         var montreal = {lat: 45.496338, lng: -73.570732};
@@ -46,12 +40,12 @@
 
       // Adds a marker to the map and push to the array.
       function addMarker(location) {
-          marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
           position: location,
           map: map,
           title: 'Hello World!',
           label: labels[labelIndex++ % labels.length],
-          //draggable:true, //if draggable is set to true, then the info window only recognizes the click i guess, on the thing still in focus, so the marker last clicked --- rather then the marker you are clicking. there is confusion
+          //draggable:true,
           
         });
         markers.push(marker);
@@ -69,9 +63,9 @@
                    </select> </td></tr>
                    <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
         </table>
-        </div></div>`;
+        </div></div>`;;
 
-      infowindow = new google.maps.InfoWindow({
+      var infowindow = new google.maps.InfoWindow({
         content: contentString
       });
 
@@ -111,6 +105,7 @@
       var hidemap = document.getElementById('hidemap');
       var deletemap = document.getElementById('deletemap');
       
+
       reloadmap.addListener('click', function(event) {
         setMapOnAll(map);
         console.log('clicking')
@@ -119,8 +114,7 @@
         setMapOnAll(null);
         console.log('clicking')
       });
-      
-    deletemap.addListener('click', function(event) {
+      deletemap.addListener('click', function(event) {
       deleteMarkers();
       labelIndex = 0;
       console.log('clicking')
