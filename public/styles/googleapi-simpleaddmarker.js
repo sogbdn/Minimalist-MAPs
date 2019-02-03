@@ -17,10 +17,11 @@
   function placeMarkerAndPanTo(latLng, map) {
     var marker = new google.maps.Marker({
       position: latLng,
-      map: map
-      //infowindow.setContent('Zoom: ' + map.getZoom());
+      map: map,
+      zoom: map.getZoom()
     });
     console.log(marker)
+    console.log(markerzoom)
     map.panTo(latLng);
     console.log(latLng.lat());
     console.log(latLng.lng());
