@@ -16,7 +16,7 @@
      var map;
       var markers = [];
       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-var labelIndex = 0;
+      let labelIndex = 0;
 
       function initMap() {
         var montreal = {lat: 45.496338, lng: -73.570732};
@@ -59,6 +59,31 @@ var labelIndex = 0;
           markers[i].setMap(map);
         }
       }
+
+      var reloadmap = document.getElementById('reloadmap');
+      var hidemap = document.getElementById('hidemap');
+      var deletemap = document.getElementById('deletemap');
+      
+
+      reloadmap.addListener('click', function(event) {
+        setMapOnAll(map);
+        console.log('clicking')
+      });
+      hidemap.addListener('click', function(event) {
+        setMapOnAll(null);
+        console.log('clicking')
+      });
+      deletemap.addListener('click', function(event) {
+      deleteMarkers();
+      labelIndex = 0;
+      console.log('clicking')
+    });
+
+    function deleteMarkers() {s
+      clearMarkers();
+      //the clearing of the marker isn't working YET. so when you delete the map the letters aren't yet resetting
+      markers = [];
+  } 
 
       // Removes the markers from the map, but keeps them in the array.
       function clearMarkers() {
