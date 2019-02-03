@@ -14,7 +14,7 @@
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
-
+  <script type="text/javascript" src="/scripts/loguser.js"></script>
   <!-- Optional JavaScript for Bootstrap components -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -37,14 +37,19 @@
   </section>
   <section id="login area"></section>
   <div class="container">
-    <form>
+    
+    <!--Form-->
+ 
       <div class="form-group">
-        <label for="exampleInputEmail1">Name</label>
-        <input type="text" class="form-control" id="username" placeholder="Please enter name">
-        <small id="emailHelp" class="form-text text-muted">This name will only be used to associate that id with maps you created and contributed to</small>
+        <form method="POST">
+          <label for="exampleInputEmail1">Name</label>
+          <input type="text" class="form-control" id="username" placeholder="Please enter name">
+        
+          <small id="emailHelp" class="form-text text-muted">This name will only be used to associate that id with maps you created and contributed to</small>
+          <button type="submit" class="btn btn-outline-info">Submit</button>
+      </form>
       </div>
-      <button type="submit" class="btn btn-outline-info" method="POST">Submit</button>
-    </form>
+      
   </div>
   </section>
 
