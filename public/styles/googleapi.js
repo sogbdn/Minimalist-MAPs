@@ -17,6 +17,12 @@
       var markers = [];
       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       let labelIndex = 0;
+      var infowindow
+      var marker
+    var messagewindow;
+
+
+    
 
       function initMap() {
         var montreal = {lat: 45.496338, lng: -73.570732};
@@ -40,12 +46,12 @@
 
       // Adds a marker to the map and push to the array.
       function addMarker(location) {
-        var marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
           position: location,
           map: map,
           title: 'Hello World!',
           label: labels[labelIndex++ % labels.length],
-          //draggable:true,
+          //draggable:true, //if draggable is set to true, then the info window only recognizes the click i guess, on the thing still in focus, so the marker last clicked --- rather then the marker you are clicking. there is confusion
           
         });
         markers.push(marker);
@@ -53,9 +59,19 @@
         console.log(location.lat());
         console.log(location.lng());
 
-        var contentString = `<div id="content"><p>apples apples apples<p></div>`;
+        var contentString = `<div id="content"><div id="table">
+        <table>
+        <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
+        <tr><td>Address:</td> <td><input type='text' id='address'/> </td> </tr>
+        <tr><td>Type:</td> <td><select id='type'> +
+                   <option value='bar' SELECTED>bar</option>
+                   <option value='restaurant'>restaurant</option>
+                   </select> </td></tr>
+                   <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+        </table>
+        </div></div>`;
 
-      var infowindow = new google.maps.InfoWindow({
+      infowindow = new google.maps.InfoWindow({
         content: contentString
       });
 
@@ -95,7 +111,6 @@
       var hidemap = document.getElementById('hidemap');
       var deletemap = document.getElementById('deletemap');
       
-
       reloadmap.addListener('click', function(event) {
         setMapOnAll(map);
         console.log('clicking')
@@ -104,7 +119,8 @@
         setMapOnAll(null);
         console.log('clicking')
       });
-      deletemap.addListener('click', function(event) {
+      
+    deletemap.addListener('click', function(event) {
       deleteMarkers();
       labelIndex = 0;
       console.log('clicking')

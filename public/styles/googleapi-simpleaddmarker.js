@@ -18,7 +18,7 @@
     var marker = new google.maps.Marker({
       position: latLng,
       map: map,
-      zoom: map.getZoom()
+      //zoom: map.getZoom()
     });
     console.log(marker)
     console.log(markerzoom)
