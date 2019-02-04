@@ -157,6 +157,57 @@ function deleteMarkers() {
   clearMarkers();
   markers = [];
 }
+
+
+function addnewMap(input){
+  const mapdetails = { 
+    url: "http://localhost:8080/api/maps/createmaps",
+    method: 'POST',
+    data: {
+      id:,
+      name:,
+      description:,
+      lat:, 
+      lng:,
+      zoom:,
+      user_id:,
+    }
+  };
+  
+  $.ajax(mapdetails)
+  .done(function (response) {
+    addnewMap(response)
+  }).fail(function(error){
+  }).always(function(){
+  });
+}
+
+// function loadtweets(){
+//   const options = { 
+//     url: "http://localhost:8080/tweets",
+//     method: 'GET',
+//     dataType: 'json'
+//   }
+//   $.ajax(options)
+//   .done(function (response) {
+//     renderTweets(response);
+//   }).fail(function(error){
+//   }).always(function(){
+//   });
+// }
+// loadtweets();
+
+
+
+
+// var dynamicinfobox = 
+//   `<div id="content"><div id="table">
+//   <table>
+//   <p>something</p>
+//   </table>
+//   </div></div>`;
+
+
 // console.log(`array of markers: ${markers})
 
 
@@ -185,12 +236,7 @@ function deleteMarkers() {
 
 
   //all the ${vars} below are made up. 
-  var dynamicinfobox = 
-  `<div id="content"><div id="table">
-  <table>
-  <p>something</p>
-  </table>
-  </div></div>`;
+  
 
   /*
   var dynamicinfobox = 

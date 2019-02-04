@@ -43,6 +43,14 @@ function addMarker(location) {
   });
 }
 
+
+var dynamicinfobox = 
+`<div id="content"><div id="table">
+<table>
+<p>something</p>
+</table>
+</div></div>`; /// not working properly
+
 // THIS RELOADS THE STORED ARRAY OF MARKERS --- 
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
@@ -95,7 +103,29 @@ function deleteMarkers() {
 // console.log(`array of markers: ${markers})
 
 
+function loadMaps(){
+  const options = { 
+    url: "http://localhost:8080/tweets",
+    method: 'GET',
+    dataType: 'json'
+  }
+  $.ajax(options)
+  .done(function (response) {
+    renderMaps(response);
+  }).fail(function(error){
+  }).always(function(){
+  });
+}
+loadMaps();
 
+
+function renderTweets(tweets) {
+
+  for (var tweetdeets of tweets) {
+    createTweetElement(tweetdeets);
+    tweetrender = tweetdeets;
+  }
+}
 //----->>>BELOW is attempting to detect when an infowindow is open elsewhere and close it then open the other. by trying to put the infowindow out of scope of the function that opens a infowindow, it's hoped it will reset/refresh. 
 
 //   var infowindow = new google.maps.InfoWindow();
@@ -120,12 +150,7 @@ function deleteMarkers() {
 
 
   //all the ${vars} below are made up. 
-  var dynamicinfobox = 
-  `<div id="content"><div id="table">
-  <table>
-  <p>something</p>
-  </table>
-  </div></div>`;
+
 
   
   // var dynamicinfobox = 
