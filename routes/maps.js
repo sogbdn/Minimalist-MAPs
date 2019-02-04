@@ -10,32 +10,31 @@ module.exports = (knex) => {
       .select("*")
       .from("maps")
       .then((results) => {
-        res.json(results);
+        res.render('allmaps', { results });
       });
-    res.render('allmaps.html');
   });
 
   router.get('/createmaps', (req, res) => {
-    res.render('createmap.html');
+    res.render('createmap');
   });
 
   router.post('/createmaps', (req, res) => {
     knex
-      .insert({ name: 'test_name' })
+      .insert({ name: req.body["Map Name"], description: req.body["Map Description"] })
       .into('maps')
-    res.render('user.ejs');
+    res.render('user');
   });
 
-  router.get('mymaps', (req, res) => {
+  router.get('/mymaps', (req, res) => {
     knex('maps')
       .join('users')
       .select('*')
       .where(user_id = id)
       .then((results) => {
-        res.render('/mymaps.html');
+        res.render('mymaps');
       });
-
   })
 
-return router;
+  return router;
 }
+
