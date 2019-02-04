@@ -67,7 +67,8 @@ function addMarker(location) {
   console.log(location.lat());
   console.log(location.lng());
 
-  //this is the popup window and form for each marker. but  different one will have to be built to pass the object vars from the database
+  //this is the popup window and form for each marker. 
+
   var contentString = 
   `<div id="content"><div id="table">
   <table>
@@ -97,6 +98,7 @@ function addMarker(location) {
 //----->>> this one works but is not conditional to the state of other windows-------> 
 
   marker.addListener('click', function() {
+    
     /*var*/ infowindow = new google.maps.InfoWindow({
       content: contentString//dynamicinfobox//
     });
@@ -105,13 +107,12 @@ function addMarker(location) {
   });
 }
 
-// THIS RELOADS THE STORED ARRAY OF MARKERS --- 
+// ----------> THIS RELOADS THE ARRAY OF MARKERS/Objects --- 
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
 }
-
 var reloadmap = document.getElementById('reloadmap');
 var hidemap = document.getElementById('hidemap');
 var deletemap = document.getElementById('deletemap');
@@ -131,6 +132,8 @@ resetlabelindex();
 console.log('clicking')
 });
 
+///------> EVERYTHING RELATED TO TESTING THE MARKER ARRAY ----->
+
 function deleteMarkers() {
 clearMarkers();
 resetlabelindex();
@@ -139,48 +142,48 @@ markers = [];
 } 
 
 function resetlabelindex (){
-  labelIndex = 0; // this isn't working yet. it's trying to reset the counter for the abc letter assignments to each array. 
+  labelIndex = 0; 
 }
 
-// Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
   setMapOnAll(null);
 }
 
-// Shows any markers currently in the array.
+
 function showMarkers() {
   setMapOnAll(map);
 }
 
-// Deletes all markers in the array by removing references to them.
 function deleteMarkers() {
   clearMarkers();
   markers = [];
 }
 
 
-function addnewMap(input){
-  const mapdetails = { 
-    url: "http://localhost:8080/api/maps/createmaps",
-    method: 'POST',
-    data: {
-      id:,
-      name:,
-      description:,
-      lat:, 
-      lng:,
-      zoom:,
-      user_id:,
-    }
-  };
+//------> NON FUNCTIONAL GUESSING AT THE creation of ajax to send map data
+
+// function addnewMap(input){
+//   const mapdetails = { 
+//     url: "http://localhost:8080/api/maps/createmaps",
+//     method: 'POST',
+//     data: {
+//       id:,
+//       name:,
+//       description:,
+//       lat:, 
+//       lng:,
+//       zoom:,
+//       user_id:,
+//     }
+//   };
   
-  $.ajax(mapdetails)
-  .done(function (response) {
-    addnewMap(response)
-  }).fail(function(error){
-  }).always(function(){
-  });
-}
+//   $.ajax(mapdetails)
+//   .done(function (response) {
+//     addnewMap(response)
+//   }).fail(function(error){
+//   }).always(function(){
+//   });
+// }
 
 // function loadtweets(){
 //   const options = { 

@@ -1,12 +1,12 @@
 var map;
 var markers = [];
-// var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-// let labelIndex = 0; 
 var infoWindow;
+
+
+//createMapElement(){} //wraps all the initMap?
+
 function initMap() {
   var maplocation = {/*map.lat, map.lng*/}
-  //------> hardcode {lat: 45.496338, lng: -73.570732};
-
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: maplocation,
@@ -14,10 +14,6 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow;
 
-
-  // map.addListener('click', function(event) {
-  //   addMarker(event.latLng);
-  // });
 }
 
 // Adds a marker to the map and push to the array.
@@ -119,13 +115,20 @@ function loadMaps(){
 loadMaps();
 
 
-function renderTweets(tweets) {
+function renderMaps(maps) {
 
-  for (var tweetdeets of tweets) {
-    createTweetElement(tweetdeets);
-    tweetrender = tweetdeets;
+  for (var mapdeets of maps) {
+    createMapElement(mapdeets);
+    tweetrender = mapdeets;
   }
 }
+
+//>> createMapElement  /// wraps the initMap functions.... perhaps
+
+
+
+
+
 //----->>>BELOW is attempting to detect when an infowindow is open elsewhere and close it then open the other. by trying to put the infowindow out of scope of the function that opens a infowindow, it's hoped it will reset/refresh. 
 
 //   var infowindow = new google.maps.InfoWindow();
