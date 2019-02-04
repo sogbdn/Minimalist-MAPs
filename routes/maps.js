@@ -10,9 +10,8 @@ module.exports = (knex) => {
       .select("*")
       .from("maps")
       .then((results) => {
-        res.json(results);
+        res.render('allmaps', { results });
       });
-    res.render('allmaps');
   });
 
   router.get('/createmaps', (req, res) => {
