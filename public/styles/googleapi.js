@@ -10,6 +10,8 @@ var infoWindow;
 function initMap() {
   //var montreal = {lat: 45.496338, lng: -73.570732};
   var testlocation = {lat: 45.496338, lng: -73.570732};
+// get map latlng ---> console.log(location.lat());console.log(location.lng());
+
   // this was where i tried to create an array of static maker locations, that would load at initialization. but it only works on the first called marker.
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -116,16 +118,17 @@ function setMapOnAll(map) {
 var reloadmap = document.getElementById('reloadmap');
 var hidemap = document.getElementById('hidemap');
 var deletemap = document.getElementById('deletemap');
+console.log(reloadmap);
 
-reloadmap.addListener('click', function(event) {
+reloadmap.addEventListener('click', function(event) {
   setMapOnAll(map);
   console.log('clicking')
 });
-hidemap.addListener('click', function(event) {
+hidemap.addEventListener('click', function(event) {
   setMapOnAll(null);
   console.log('clicking')
 });
-deletemap.addListener('click', function(event) {
+deletemap.addEventListener('click', function(event) {
 deleteMarkers();
 resetlabelindex();
 //labelIndex = 0; //this isn't resetting things
@@ -160,30 +163,49 @@ function deleteMarkers() {
 }
 
 
+
+///------> EVENT LISTENER ------ > > > 
+
+$('#mapform').on('submit', function (event){
+  event.preventDefault();
+  //console.log('clickingform');
+  const mapname = $('#map_name').val();
+  const mapdesc = $('#map_description').val();
+  addnewMap();
+});
+
+
 //------> NON FUNCTIONAL GUESSING AT THE creation of ajax to send map data
 
-// function addnewMap(input){
-//   const mapdetails = { 
-//     url: "http://localhost:8080/api/maps/createmaps",
-//     method: 'POST',
-//     data: {
-//       id:,
-//       name:,
-//       description:,
-//       lat:, 
-//       lng:,
-//       zoom:,
-//       user_id:,
-//     }
-//   };
+function addnewMap(input){
+  const mapdetails = { 
+    url: "http://localhost:8080/api/maps",
+    method: 'POST',
+    data: {
+      //id:, ---> created by the database 
+      name: 'oranges',
+      description: 'apples',
+      lat: 39, 
+      lng: 42,
+      zoom: 11,
+      user_id: 1,
+    }
+  };
   
-//   $.ajax(mapdetails)
-//   .done(function (response) {
-//     addnewMap(response)
-//   }).fail(function(error){
-//   }).always(function(){
-//   });
-// }
+  $.ajax(mapdetails)
+    .done(function (response) {
+      //addnewMap(response)
+      console.log('inside done')
+      console.log(response)
+    })
+    .fail(function(error){
+      console.log('insidefail')
+      console.log(error);
+    })
+    .always(function(){
+      console.log('insidealways')
+    });
+}
 
 // function loadtweets(){
 //   const options = { 
