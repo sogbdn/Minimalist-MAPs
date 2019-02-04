@@ -1,36 +1,16 @@
-/*#floating-panel {
-position: absolute;
-top: 10px;
-left: 25%;
-z-index: 5;
-background-color: #fff;
-padding: 5px;
-border: 1px solid #999;
-text-align: center;
-font-family: 'Roboto','sans-serif';
-line-height: 30px;
-padding-left: 10px;
-}
-*/
-
 var map;
 var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-let labelIndex = 0;
+let labelIndex = 0; // this is the index of the abc assignments, but it's not being emptied when the array is deleted
 var infoWindow;
 //let markerlatlong = []
 
+//originally montreal was being used as the static start location--- test location shifts to geolocation. to test this function i have the map first load in newzealand. where i'd rather be.
+
 function initMap() {
-  //originally montreal was being used as the static start location--- test location shifts to geolocation. to test this function i have the map first load in newzealand. where i'd rather be.
-  
   //var montreal = {lat: 45.496338, lng: -73.570732};
-
-  var testlocation = {lat:-43.071537, lng: 170.674186};
-
-  var test2 = {lat: 45.484905786674126, lng: -73.55345052731707};
-  var test3 = {lat: 45.484905786674126, lng: -73.57247995596919};
-
-  // var manyplaces = [{lat: 45.496338, lng: -73.570732},{lat: 46.496338, lng: -74.570732}, {lat: 45.596338, lng: -73.900732}]
+  var testlocation = {lat: 45.496338, lng: -73.570732};
+  // this was where i tried to create an array of static maker locations, that would load at initialization. but it only works on the first called marker.
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
@@ -39,14 +19,12 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow;
 
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-
       infoWindow.setPosition(pos);
       infoWindow.setContent('Location found.');
       infoWindow.open(map);
@@ -55,25 +33,24 @@ function initMap() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
   } else {
-    // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-  // This event listener will call addMarker() when the map is clicked.
-  //This has been set to dblclick, but dblclick also triggers a zoom in, so separating out these actions will be necessary. but i want to save the single click for testing the info windows
+  // This event listener will call addMarker() when the map is clicked. addEventListener doesn't work for some reason--- seems to be related to syntax that google needs specifically to be related to their map. 
+
   map.addListener('click', function(event) {
     addMarker(event.latLng);
-    
   });
-
-  // Adds a start marker at the center of the map.
-  //addMarker(montreal); //--->> this was a hard coded marker position.. remember this maybe for testing data. 
-  // for (let m = 0; m < manyplaces.length; m++){
-  //   addMarker(manyplaces[m]);
-  // }
-  //so addMarker can only be called once? ?? WHYYYYYYY....
-
 }
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+    'Error: The Geolocation service failed.' :
+    'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}
+
 
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
@@ -83,24 +60,14 @@ function addMarker(location) {
     title: 'Hello World!',
     label: labels[labelIndex++ % labels.length],
     //draggable:true,
-    
   });
 
-  //below was an attempt to create a more simplified object storing marker data. but without the full content of the position: location, everything stopped working. the longlat is not enough, even though location is technically the long and lat. this is because of how the addMarker function was written... position could theoretically : {location.lat(), location.lng()}
-
-  // var markerlatlong = new google.maps.Marker({
-  //   position: location,
-  //   lat: location.lat(), 
-  //   lng: location.lng(),
-  //   map: map
-  // });
-
-  //datamarker.push(markerlatlong);
-  markers.push(marker);
-  console.log(markers);
+  markers.push(marker); // this is the array that all the marker points are being pushed too.
+  console.log(markers); // this is the complex object 
   console.log(location.lat());
   console.log(location.lng());
 
+  //this is the popup window and form for each marker. but  different one will have to be built to pass the object vars from the database
   var contentString = 
   `<div id="content"><div id="table">
   <table>
@@ -136,8 +103,65 @@ function addMarker(location) {
     infowindow.open(map, marker);
     //console.log('clicking');
   });
+}
 
-  //----->>>
+// THIS RELOADS THE STORED ARRAY OF MARKERS --- 
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+var reloadmap = document.getElementById('reloadmap');
+var hidemap = document.getElementById('hidemap');
+var deletemap = document.getElementById('deletemap');
+
+reloadmap.addListener('click', function(event) {
+  setMapOnAll(map);
+  console.log('clicking')
+});
+hidemap.addListener('click', function(event) {
+  setMapOnAll(null);
+  console.log('clicking')
+});
+deletemap.addListener('click', function(event) {
+deleteMarkers();
+resetlabelindex();
+//labelIndex = 0; //this isn't resetting things
+console.log('clicking')
+});
+
+function deleteMarkers() {
+clearMarkers();
+resetlabelindex();
+//the clearing of the marker isn't working YET. so when you delete the map the letters aren't yet resetting
+markers = [];
+} 
+
+function resetlabelindex (){
+  labelIndex = 0; // this isn't working yet. it's trying to reset the counter for the abc letter assignments to each array. 
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+// console.log(`array of markers: ${markers})
+
+
+
+//----->>>BELOW is attempting to detect when an infowindow is open elsewhere and close it then open the other. by trying to put the infowindow out of scope of the function that opens a infowindow, it's hoped it will reset/refresh. 
 
 //   var infowindow = new google.maps.InfoWindow();
 
@@ -157,108 +181,5 @@ function addMarker(location) {
   //   infowindow.open(map, this);
   //   //console.log('clicking');
   // });
-}
- 
-  // // Info Window With Click 
-	// google.maps.event.addListener(marker, 'click', function() {
-	// 	infowindow.open(map,marker);
-	// });
-
-	// // Info Window Without Click 
-  // infowindow.open(map,marker);
-  
-
-// THIS RELOADS THE STORED ARRAY OF MARKERS --- 
-function setMapOnAll(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-  }
-}
-
-/*a similar loop has to be made for all the info windows? although looking at the object attached to each marker, it seems like you save the title of the marker inside there...*/
-
-var reloadmap = document.getElementById('reloadmap');
-var hidemap = document.getElementById('hidemap');
-var deletemap = document.getElementById('deletemap');
 
 
-reloadmap.addListener('click', function(event) {
-  setMapOnAll(map);
-  console.log('clicking')
-});
-hidemap.addListener('click', function(event) {
-  setMapOnAll(null);
-  console.log('clicking')
-});
-deletemap.addListener('click', function(event) {
-deleteMarkers();
-resetlabelindex();
-//labelIndex = 0; //this isn't resetting things
-console.log('clicking')
-
-});
-
-function deleteMarkers() {
-clearMarkers();
-//the clearing of the marker isn't working YET. so when you delete the map the letters aren't yet resetting
-markers = [];
-} 
-
-// Removes the markers from the map, but keeps them in the array.
-function clearMarkers() {
-  setMapOnAll(null);
-}
-
-function resetlabelindex (){
-  labelIndex = 0;
-}
-
-// Shows any markers currently in the array.
-function showMarkers() {
-  setMapOnAll(map);
-}
-
-// Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-  clearMarkers();
-  markers = [];
-}
-      // console.log(`array of markers: ${markers})
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-    'Error: The Geolocation service failed.' :
-    'Error: Your browser doesn\'t support geolocation.');
-  infoWindow.open(map);
-}
-
-// $(document).ready(function(){
-
-  // function initMap() {
-  //   var map = new google.maps.Map
-  //   // $('.map')
-  //   (document.getElementById('map'), {
-  //     zoom: 17,
-  //     center: {lat: 45.496338, lng: -73.570732 }
-  //   });
-  //   map.addListener('dblclick', function(e) {
-  //     placeMarkerAndPanTo(e.latLng, map);
-  //     //infowindow.setContent('Zoom: ' + map.getZoom());
-  //     //console.log(e);
-  //   });
-  // }
-  
-  // function placeMarkerAndPanTo(latLng, map) {
-  //   var marker = new google.maps.Marker({
-  //     position: latLng,
-  //     map: map,
-  //     zoom: map.getZoom()
-  //   });
-  //   console.log(marker)
-  //   console.log(markerzoom)
-  //   map.panTo(latLng);
-  //   console.log(latLng.lat());
-  //   console.log(latLng.lng());
-  //   }
-  // })
