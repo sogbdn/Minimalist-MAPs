@@ -14,13 +14,21 @@ module.exports = (knex) => {
       });
   });
 
-  router.get('/createmaps', (req, res) => {
+  router.get('/api/maps', (req, res) => {
     res.render('createmap');
   });
 
-  router.post('/createmaps', (req, res) => {
+  router.post('/api/maps', (req, res) => {
+    console.log(req.body);
     knex
-      .insert({ name: req.body["Map Name"], description: req.body["Map Description"] })
+      .insert({
+        name: req.body.name,
+        description: req.body.description,
+        lat: req.body.lat,
+        lng: req.body.lng,
+        zoom: req.body.zoom,
+        user_id: req.body.user_id
+      })
       .into('maps')
     res.render('user');
   });
@@ -31,7 +39,7 @@ module.exports = (knex) => {
       .select('*')
       .where(user_id = id)
       .then((results) => {
-        res.render('mymaps');
+        res.render('mymaps', { results });
       });
   })
 
