@@ -43,8 +43,7 @@ function initMap() {
   // for (let m = 0; m < manyplaces.length; m++){
   //   addMarker(manyplaces[m]);
   // }
-  addMarker(test2)
-  addMarker(test3) //so addMarker can only be called once? ?? WHYYYYYYY....
+ z //so addMarker can only be called once? ?? WHYYYYYYY....
 
 }
 
@@ -102,24 +101,24 @@ function addMarker(location) {
 
 //----->>> this one works but is not conditional to the state of other windows-------> 
 
-  // marker.addListener('click', function() {
-  //   var infowindow = new google.maps.InfoWindow({
-  //     content: contentString
-  //   });
-  //   infowindow.open(map, marker);
-  //   //console.log('clicking');
-  // });
+  marker.addListener('click', function() {
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    infowindow.open(map, marker);
+    //console.log('clicking');
+  });
 
   //----->>>
 
-  var infowindow = new google.maps.InfoWindow();
+//   var infowindow = new google.maps.InfoWindow();
 
-for (var i = 0, marker; marker = markers[i]; i++) {
-  google.maps.event.addListener(marker, 'click', function(e) {
-    //infowindow.setContent('Marker position: ' + this.getPosition());
-    infowindow.open(map, this);
-  });
-}
+// for (var i = 0, marker; marker = markers[i]; i++) {
+//   google.maps.event.addListener(marker, 'click', function(e) {
+//     //infowindow.setContent('Marker position: ' + this.getPosition());
+//     infowindow.open(map, this);
+//   });
+// }
 
   // marker.addListener('click', function() {
   //   //infowindow.close(map, marker);
