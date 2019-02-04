@@ -14,15 +14,28 @@ module.exports = (knex) => {
       });
   });
 
-  router.get('/createmaps', (req, res) => {
+  router.get('/', (req, res) => {
     res.render('createmap');
   });
 
-  router.post('/createmaps', (req, res) => {
-    knex
-      .insert({ name: req.body["Map Name"], description: req.body["Map Description"] })
-      .into('maps')
-    res.render('user');
+  router.post('/', (req, res) => {
+    console.log(req.body);
+    knex('maps')
+      .insert({
+        name: req.body.name,
+        description: req.body.description,
+        lat: req.body.lat,
+        lng: req.body.lng,
+        zoom: req.body.zoom,
+        user_id: req.body.user_id
+      })
+      .then(function(input){ //change veriable names
+        console.log('donesql')
+        res.render('user');
+        console.log(input);
+      })
+      // .into('maps')
+    
   });
 
   router.get('/mymaps', (req, res) => {
@@ -31,7 +44,7 @@ module.exports = (knex) => {
       .select('*')
       .where(user_id = id)
       .then((results) => {
-        res.render('mymaps');
+        res.render('mymaps', { results });
       });
   })
 
