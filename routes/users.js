@@ -5,26 +5,36 @@ const router = express.Router();
 
 module.exports = (knex) => {
 
-  //Post to login to save a cookie
-  router.post("/login/:id", (req, res) => {
-    req.session.user_id = req.params.id;
-    res.redirect("/createmap.html");
-  });
+ router.get('/allmaps', (req, res) => {
+   knex
+     .select("*")
+     .from("maps")
+     .then((results) => {
+       res.json(results);
+     });
+   res.render('allmaps');
+ });
 
-  router.post("/logout", (req, res) => {
-    req.session = null;
-    res.redirect("/");
-  });
+ router.get('/createmaps', (req, res) => {
+   res.render('createmap');
+ });
 
+ router.post('/createmaps', (req, res) => {
+   knex
+     .insert({ name: req.body["Map Name"], description: req.body["Map Description"] })
+     .into('maps')
+   res.render('user');
+ });
 
+ router.get('/mymaps', (req, res) => {
+   knex('maps')
+     .join('users')
+     .select('*')
+     .where(user_id = id)
+     .then((results) => {
+       res.render('mymaps');
+     });
+ })
 
-
-
-
-
-
-
-
-
-  return router;
+ return router;
 }
