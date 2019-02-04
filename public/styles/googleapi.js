@@ -26,7 +26,7 @@ function initMap() {
         lng: position.coords.longitude
       };
       infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
+      infoWindow.setContent('Viewing current geoLocation');
       infoWindow.open(map);
       map.setCenter(pos);
     }, function() {
@@ -73,11 +73,11 @@ function addMarker(location) {
   <table>
   <tr>
   <td>Name:</td> 
-  <td><input type='text' id='name'/> </td> 
+  <td><input type='text' id='marker_name'/> </td> 
   </tr>
   <tr>
   <td>Description:</td> 
-  <td><input type='text' id='description'/> </td> 
+  <td><input type='text' id='marker_description'/> </td> 
   </tr>
   <tr><td>Type:</td> 
     <td>
@@ -98,7 +98,7 @@ function addMarker(location) {
 
   marker.addListener('click', function() {
     /*var*/ infowindow = new google.maps.InfoWindow({
-      content: contentString
+      content: contentString//dynamicinfobox//
     });
     infowindow.open(map, marker);
     //console.log('clicking');
@@ -182,4 +182,46 @@ function deleteMarkers() {
   //   //console.log('clicking');
   // });
 
+
+
+  //all the ${vars} below are made up. 
+  var dynamicinfobox = 
+  `<div id="content"><div id="table">
+  <table>
+  <p>something</p>
+  </table>
+  </div></div>`;
+
+  /*
+  var dynamicinfobox = 
+  `<div id="content"><div id="table">
+  <table>
+  <tr>
+  <td>Name:</td> 
+  <td><div class="markername">${maps.markername}</div></td> 
+  </tr>
+  <tr>
+  <td>Description:</td> 
+  <td><p>${maps.markerdescription}</p></td> 
+  </tr>
+  <tr><td><button type="button" class="btn btn-secondary btn-sm">Edit </button></td> 
+    <td>
+    </td></tr>
+    <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+  </table>
+  </div></div>`;*/
+
+  /*
+   $('#tweets-container').prepend(
+    `<article class="box2">
+    <header id ="titlespace2">
+      <img class="userlogo" src="${tweets.user.avatars.small}">
+      <h2 id="username">${tweets.user.name}</h2>
+      <span class="id">${tweets.user.handle}</span>
+    </header>
+    <div class="tweetresponse">${escape(tweets.content.text)}
+    </div>
+    <footer id="tweetfooter"><span class="leftside"><p class="tinytype">${timestamp(tweets.created_at)}</p></span><span class="rightside"><img class="flaglikeretweet" src="/images/likeretweet.gif"></span></footer>
+    </article>`
+  );*/
 
