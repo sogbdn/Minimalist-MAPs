@@ -17,10 +17,16 @@ var map;
 var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 let labelIndex = 0;
+var infoWindow;
 //let markerlatlong = []
 
 function initMap() {
-  var montreal = {lat: 45.496338, lng: -73.570732};
+  //originally montreal was being used as the static start location--- test location shifts to geolocation. to test this function i have the map first load in newzealand. where i'd rather be.
+  
+  //var montreal = {lat: 45.496338, lng: -73.570732};
+
+  var testlocation = {lat:-43.071537, lng: 170.674186};
+
   var test2 = {lat: 45.484905786674126, lng: -73.55345052731707};
   var test3 = {lat: 45.484905786674126, lng: -73.57247995596919};
 
@@ -28,8 +34,30 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
-    center: montreal,
+    center: testlocation,
   });
+
+  infoWindow = new google.maps.InfoWindow;
+
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Location found.');
+      infoWindow.open(map);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
 
   // This event listener will call addMarker() when the map is clicked.
   //This has been set to dblclick, but dblclick also triggers a zoom in, so separating out these actions will be necessary. but i want to save the single click for testing the info windows
@@ -43,7 +71,7 @@ function initMap() {
   // for (let m = 0; m < manyplaces.length; m++){
   //   addMarker(manyplaces[m]);
   // }
- z //so addMarker can only be called once? ?? WHYYYYYYY....
+  //so addMarker can only be called once? ?? WHYYYYYYY....
 
 }
 
@@ -102,7 +130,7 @@ function addMarker(location) {
 //----->>> this one works but is not conditional to the state of other windows-------> 
 
   marker.addListener('click', function() {
-    var infowindow = new google.maps.InfoWindow({
+    /*var*/ infowindow = new google.maps.InfoWindow({
       content: contentString
     });
     infowindow.open(map, marker);
@@ -197,6 +225,13 @@ function deleteMarkers() {
 }
       // console.log(`array of markers: ${markers})
 
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+    'Error: The Geolocation service failed.' :
+    'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}
 
 // $(document).ready(function(){
 
