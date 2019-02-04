@@ -10,7 +10,8 @@ module.exports = (knex) => {
       .select("*")
       .from("maps")
       .then((results) => {
-        res.json(results);
+        res.json(results)
+        // template to allmaps.ejs
       });
     res.render('allmaps');
   })
@@ -26,6 +27,17 @@ module.exports = (knex) => {
     res.redirect('mymaps');
   })
 
+  // ajax route
+  router.post('createmarker', (req, res) => {
+    // ckeck if user logged in?
+    // check if map is owned by user?
+    // add marker to map id.
+    knex
+      .insert({ name: req.body["Map Name"], description: req.body["Map Description"] })
+      .into("marker");
+  })
+
+
 
   router.get('/mymaps', (req, res) => {
     knex('maps')
@@ -35,8 +47,6 @@ module.exports = (knex) => {
       .then((results) => {
         res.render('mymaps');
       });
-
   })
-
   return router;
 }
