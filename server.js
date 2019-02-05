@@ -36,7 +36,7 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
-app.use(express.static("views/style"));
+//app.use(express.static("views/style"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
