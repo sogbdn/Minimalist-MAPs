@@ -20,6 +20,9 @@ function initMap() {
   });
 
   infoWindow = new google.maps.InfoWindow;
+  infoWindow.open(map);
+  infoWindow.setContent(`<br><li><b>click on map to add marker</li><li>click on marker to add and save details</li><li>drag marker to reposition</li><br><p align='right'>Save Your Map to the Right ></b></p>`);
+  infoWindow.setPosition(testlocation);
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -27,10 +30,10 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Viewing current geoLocation');
-      infoWindow.open(map);
-      map.setCenter(pos);
+      // infoWindow.setPosition(pos);
+      // infoWindow.setContent(`Showing Current Location`);
+      // infoWindow.open(map);
+      // map.setCenter(pos);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -61,7 +64,7 @@ function addMarker(location) {
     map: map,
     title: 'Hello World!',
     label: labels[labelIndex++ % labels.length],
-    //draggable:true,
+    draggable:true,
   });
 
   markers.push(marker); // this is the array that all the marker points are being pushed too.
