@@ -201,13 +201,19 @@ $('#mapform').on('submit', function (event){
   //basket.push(mapname)
   mapdesc = $('#map_description').val();
   //basket.push(mapdesc)
+  console.log(`MAP OBJECT: ${map.getCenter()}`);
+  const lat1 = map.getCenter().lat();
+  const lng1 = map.getCenter().lng();
+  console.log(`LAT OBJECT: ${lat1}`);
+  console.log(`LNG OBJECT: ${lng1}`);
+  console.log(map.getZoom())
+  //console.log(lng1);
   console.log(mapdesc);
   addnewMap();
 });
-console.log(`tttesssstttiinnnngggg:`);
-console.log(`tttesssstttiinnnngggg: ${basket}`)
-console.log(`tttessssttting name: ${mapname}`)
-console.log(`tttessssttting desc: ${mapdesc}`)
+
+// console.log(`tttessssttting name: ${mapname}`)
+// console.log(`tttessssttting desc: ${mapdesc}`)
 
 //------> Ajax to send map data
 
@@ -241,9 +247,6 @@ function addnewMap(input){
       console.log(`tttessssttting name: ${getlat}`)
       console.log(typeof(getlat))
       console.log(Number.parseFloat(getlat))
-      //console.log(`tttessssttting name: ${mapname}`)
-      //console.log(`tttessssttting desc: ${mapdesc}`)
-      //console.log(response) -->>> this is reprinting allll the html....
     })
     .fail(function(error){
       console.log('ajax fail')
