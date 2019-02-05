@@ -34,11 +34,12 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      console.log(position.coords.latitude)
-      console.log(map.getZoom())
+      // console.log(position.coords.latitude)
+      // console.log(map.getZoom())
 
       getlng = position.coords.latitude;
       getlat = position.coords.longitude;
+      getzoom = map.getZoom(); //this means zoom will only be grabbed at the very beginning of the map initialization... i need to tie it to the moment they submit the form : <
        
       /* unreliable approach using an array
       basket.push(position.coords.latitude)
@@ -236,8 +237,10 @@ function addnewMap(input){
       console.log('ajax inside test')
       console.log(`tttessssttting name: ${getlng}`)
       console.log(typeof(getlng))
+      console.log(Number.parseFloat(getlng))
       console.log(`tttessssttting name: ${getlat}`)
       console.log(typeof(getlat))
+      console.log(Number.parseFloat(getlat))
       //console.log(`tttessssttting name: ${mapname}`)
       //console.log(`tttessssttting desc: ${mapdesc}`)
       //console.log(response) -->>> this is reprinting allll the html....
