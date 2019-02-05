@@ -21,6 +21,7 @@ module.exports = (knex) => {
   router.post('/', (req, res) => {
     console.log(req.body);
     knex('maps')
+      .returning('id')
       .insert({
         name: req.body.name,
         description: req.body.description,
@@ -30,9 +31,9 @@ module.exports = (knex) => {
         user_id: req.body.user_id
       })
       .then(function (input) { //change veriable names
-        console.log('donesql')
-        res.render('user');
-        console.log(input);
+        console.log('donesql');
+        console.log("post route STUFF : "+input);
+        res.send(input);
       })
     // .into('maps')
 

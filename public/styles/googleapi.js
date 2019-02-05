@@ -56,14 +56,14 @@ function initMap() {
     console.log(event.latLng.lng());
     console.log(`MAP ID------: ${map.id}`);
 
-    var markerdetails = {
-      url: 'http://localhost:8080/api/markers'
-      method: 'POST',
-      data: {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-        map_id: map.id;
-      }
+    // var markerdetails = {
+    //   url: 'http://localhost:8080/api/markers'
+    //   method: 'POST',
+    //   data: {
+    //     lat: event.latLng.lat(),
+    //     lng: event.latLng.lng(),
+    //     map_id: map.id;
+    //   }
 
 
     //   $.ajax(markerdetails)
@@ -232,6 +232,8 @@ $('#mapform').on('submit', function (event){
     zoom: map.getZoom(),
     user_id: 1,
   }
+
+  console.log('newmap', captureMap)
   addnewMap(captureMap);
 });
 
@@ -265,7 +267,7 @@ function addnewMap(inputData){
     .done(function (response) {
       map.id = 1;//////hardcoded
       //backend sends back id
-      //console.log(response)
+      console.log(response)
       console.log('ajax inside test')     
     })
     .fail(function(error){
