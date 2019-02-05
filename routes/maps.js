@@ -5,7 +5,7 @@ const router = express.Router();
 
 module.exports = (knex) => {
 
-  router.get('/allmaps', (req, res) => {
+  router.get('/maps', (req, res) => {
     knex
       .select("*")
       .from("maps")
@@ -29,24 +29,24 @@ module.exports = (knex) => {
         zoom: req.body.zoom,
         user_id: req.body.user_id
       })
-      .then(function(input){ //change veriable names
+      .then(function (input) { //change veriable names
         console.log('donesql')
         res.render('user');
         console.log(input);
       })
-      // .into('maps')
-    
+    // .into('maps')
+
   });
 
-  router.get('/mymaps', (req, res) => {
+  router.get('/users/:id', (req, res) => {
+    console.log(req.body);
     knex('maps')
-      .join('users')
+      .where('user_id', req.params.id)
       .select('*')
-      .where(user_id = id)
       .then((results) => {
-        res.render('mymaps', { results });
+        res.render('display_mymaps', { results });
       });
-  })
+  });
 
   return router;
 }
