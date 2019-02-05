@@ -3,26 +3,30 @@ var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 let labelIndex = 0; // this is the index of the abc assignments, but it's not being emptied when the array is deleted
 var infoWindow;
+var basket = []
 //let markerlatlong = []
+let getlat = ''
+let getlng = ''
+let getzoom = ''
 
 //originally montreal was being used as the static start location--- test location shifts to geolocation. to test this function i have the map first load in newzealand. where i'd rather be.
 
 function initMap() {
   //var montreal = {lat: 45.496338, lng: -73.570732};
-  var testlocation = {lat: 45.496338, lng: -73.570732};
+  var starterlocation = {lat: 45.496338, lng: -73.570732};
 // get map latlng ---> console.log(location.lat());console.log(location.lng());
 
   // this was where i tried to create an array of static maker locations, that would load at initialization. but it only works on the first called marker.
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
-    center: testlocation,
+    center: starterlocation,
   });
 
   infoWindow = new google.maps.InfoWindow;
   infoWindow.open(map);
   infoWindow.setContent(`<br><li><b>click on map to add marker</li><li>click on marker to add and save details</li><li>drag marker to reposition</li><br><p align='right'>Save Your Map to the Right ></b></p>`);
-  infoWindow.setPosition(testlocation);
+  infoWindow.setPosition(starterlocation);
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -30,6 +34,18 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      console.log(position.coords.latitude)
+      console.log(map.getZoom())
+
+      getlng = position.coords.latitude;
+      getlat = position.coords.longitude;
+       
+      /* unreliable approach using an array
+      basket.push(position.coords.latitude)
+      basket.push(position.coords.longitude)
+      basket.push(map.getZoom());*/
+      console.log(basket)
+
       // infoWindow.setPosition(pos);
       // infoWindow.setContent(`Showing Current Location`);
       // infoWindow.open(map);
@@ -39,6 +55,10 @@ function initMap() {
     });
   } else {
     handleLocationError(false, infoWindow, map.getCenter());
+    basket.push(map.coords.latitude)
+    console.log(map.coords.latitude)
+    basket.push(map.coords.longitude)
+    console.log(map.coords.longitude)
   }
 
   // This event listener will call addMarker() when the map is clicked. addEventListener doesn't work for some reason--- seems to be related to syntax that google needs specifically to be related to their map. 
@@ -121,7 +141,7 @@ function setMapOnAll(map) {
 var reloadmap = document.getElementById('reloadmap');
 var hidemap = document.getElementById('hidemap');
 var deletemap = document.getElementById('deletemap');
-console.log(reloadmap);
+
 
 reloadmap.addEventListener('click', function(event) {
   setMapOnAll(map);
@@ -169,16 +189,31 @@ function deleteMarkers() {
 
 ///------> EVENT LISTENER ------ > > > 
 
+let mapname = ''
+let mapdesc = ''
+
 $('#mapform').on('submit', function (event){
   event.preventDefault();
   //console.log('clickingform');
-  const mapname = $('#map_name').val();
-  const mapdesc = $('#map_description').val();
+  mapname = $('#map_name').val();
+  console.log(mapname)
+  //basket.push(mapname)
+  mapdesc = $('#map_description').val();
+  //basket.push(mapdesc)
+  console.log(mapdesc);
   addnewMap();
 });
+console.log(`tttesssstttiinnnngggg:`);
+console.log(`tttesssstttiinnnngggg: ${basket}`)
+console.log(`tttessssttting name: ${mapname}`)
+console.log(`tttessssttting desc: ${mapdesc}`)
 
+//------> Ajax to send map data
 
-//------> NON FUNCTIONAL GUESSING AT THE creation of ajax to send map data
+// function getlat (input){
+//   return input;
+// }
+
 
 function addnewMap(input){
   const mapdetails = { 
@@ -186,10 +221,10 @@ function addnewMap(input){
     method: 'POST',
     data: {
       //id:, ---> created by the database 
-      name: 'oranges',
-      description: 'apples',
-      lat: 39, 
-      lng: 42,
+      name: mapname,
+      description: mapdesc,
+      lat: getlat, 
+      lng: getlng,
       zoom: 11,
       user_id: 1,
     }
@@ -198,15 +233,21 @@ function addnewMap(input){
   $.ajax(mapdetails)
     .done(function (response) {
       //addnewMap(response)
-      console.log('inside done')
-      console.log(response)
+      console.log('ajax inside test')
+      console.log(`tttessssttting name: ${getlng}`)
+      console.log(typeof(getlng))
+      console.log(`tttessssttting name: ${getlat}`)
+      console.log(typeof(getlat))
+      //console.log(`tttessssttting name: ${mapname}`)
+      //console.log(`tttessssttting desc: ${mapdesc}`)
+      //console.log(response) -->>> this is reprinting allll the html....
     })
     .fail(function(error){
-      console.log('insidefail')
+      console.log('ajax fail')
       console.log(error);
     })
     .always(function(){
-      console.log('insidealways')
+      console.log('ajax always test')
     });
 }
 
