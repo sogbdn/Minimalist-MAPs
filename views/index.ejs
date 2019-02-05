@@ -41,13 +41,15 @@
   <section id="login area"></section>
   <div class="container">
       <div class="form-group">
-        <form>
+
+        <form method= "POST" action= "/api/users/login/">
           <label for="exampleInputEmail1">Name</label>
-          <input type="text" class="form-control" id="username" placeholder="Please enter name">
+          <input name = "loginName" type="text" class="form-control" id="username" placeholder="Please enter name">
         
           <small id="emailHelp" class="form-text text-muted">This name will only be used to associate that id with maps you created and contributed to</small>
           <button type="submit" class="btn btn-outline-info">Submit</button>
       </form>
+
     </div>
       
   </div>

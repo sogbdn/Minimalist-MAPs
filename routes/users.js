@@ -6,30 +6,39 @@ const router = express.Router();
 module.exports = (knex) => {
 
   //Post to login to save a cookie
-  router.get("/login/:id", (req, res) => {
+  router.post("/login", (req, res) => {
     // req.session.user_id = req.params.id;
+    
+    const loginName = req.body.loginName;
+    //retrieve the user with this name in the database and return
+    //its id
 
     knex
       .select('*')
       .from('users')
-      .where({name: req.params.id})
+      .where({name: loginName})
       .then((results) => {
-        if (results) {
+        if (results.length !== 0) {
           //checking if the results (user name) exists 
-          req.session.user_id = results.id;
-          req.session.user_name = results.name;
-          res.status(200).send()
+          console.log('Results: ', results);
+          req.session.user_id = results[0].id;
+          req.session.user_name = results[0].name;
+          res.redirect(`/api/users/${results[0].id}/maps`);
+
         } else {
           //insert into knex
           //insert into users the user name and set it from the form
           //look up documentation for insert 
+          console.log(loginName);
           knex ('users')
-            .insert({name: req.params.id})
-            .then(results => { //results is the whole entery. the results of the query
+            .insert({name: loginName})
+            .returning('id')
+            .then((id) => { //results is the whole entery. the results of the query
               //user has been created, so must set the cookie 
-              req.session.user_id = results.id;
-              req.session.user_name = results.name;
-              res.status(200).send()
+              console.log('Insert Id: ', id);
+              req.session.user_id = id[0];
+              req.session.user_name = loginName;
+              res.redirect("/api/users/createmap");
             }) 
         } //maybe error
       });
