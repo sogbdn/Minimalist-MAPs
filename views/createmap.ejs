@@ -54,7 +54,7 @@
                 <div class="mapnamearea"> 
                   <label for="validationTooltip01">Map Name</label>
                   <input type="text" class="form-control" id="map_name" placeholder="Name your Map"  required>
-                  <small id="nameHelp" class="form-text text-muted">Please limit name to 15 characters</small>
+                  <small id="nameHelp" class="form-text text-muted error">15 character limit</small>
                   <div class="valid-tooltip">
                     Looks good!     
                   </div>
@@ -62,6 +62,7 @@
                 <div class="mapdescriptionarea">
                   <label for="validationTooltip02">Map Description</label>
                   <input type="text" class="form-control" id="map_description" placeholder="Add Map Description" required>
+                  <small id="nameHelp" class="form-text text-muted error">100 character limit</small>
                   <div class="valid-tooltip">
                     Looks good!
                   </div>
@@ -71,11 +72,11 @@
             </form>
               
 
-              <button class="btn btn-outline-success" type="button" id="reloadmap" onclick="showMarkers()">Reload Map</button>
+              <button class="btn btn-outline-success" type="button" id="reloadmap" onclick="showMarkers()">Show Markers</button>
               
-              <button class="btn btn-outline-info" type="button" id="hidemap" onclick="clearMarkers()">Clear Map</button>
+              <button class="btn btn-outline-info" type="button" id="hidemap" onclick="clearMarkers()">Hide Markers</button>
               
-              <button class="btn btn-outline-warning" type="button" id="deletemap" onclick="deleteMarkers()">Delete Map</button>
+              <button class="btn btn-outline-warning" type="button" id="deletemap" onclick="deleteMarkers()">Delete Markers</button>
           </div>
       </div>
     </section>
