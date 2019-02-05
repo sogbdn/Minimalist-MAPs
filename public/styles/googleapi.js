@@ -1,3 +1,5 @@
+
+
 var map;
 var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -113,6 +115,8 @@ function addMarker(location) {
 }
 
 // ----------> THIS RELOADS THE ARRAY OF MARKERS/Objects --- 
+
+
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
@@ -168,6 +172,9 @@ function deleteMarkers() {
 
 
 ///------> EVENT LISTENER ------ > > > 
+$(document).ready(function(){
+
+
 
 $('#mapform').on('submit', function (event){
   event.preventDefault();
@@ -209,6 +216,7 @@ function addnewMap(input){
       console.log('insidealways')
     });
 }
+});
 
 // function loadtweets(){
 //   const options = { 

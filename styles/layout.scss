@@ -1,11 +1,25 @@
-@import "_custom.scss";
+
 
 body {
-  background-color: #EEE;
+  background-color:#6610f2;
+}
 
-  h1 {
-    color: #244751;
+p {
+  color: #6610f2;
+  border: 1px solid red;
+}
+
+
+
+.jumbotron-heading{
+
+  h1{
+
+   color: #6610f2;
+   border: 1px solid red;
   }
+
+
 }
 
 
