@@ -23,7 +23,7 @@ module.exports = (knex) => {
           console.log('Results: ', results);
           req.session.user_id = results[0].id;
           req.session.user_name = results[0].name;
-          res.redirect(`/api/users/${results[0].id}/maps`);
+          res.redirect(`/api/users/${results[0].id}/maps/`); //change to myMaps?
 
         } else {
           //insert into knex
@@ -38,7 +38,7 @@ module.exports = (knex) => {
               console.log('Insert Id: ', id);
               req.session.user_id = id[0];
               req.session.user_name = loginName;
-              res.redirect("/api/users/createmap");
+              res.redirect("/api/maps/");
             }) 
         } //maybe error
       });
