@@ -48,6 +48,27 @@ module.exports = (knex) => {
       });
   });
 
+  router.post('/:id/markers', (req, res) => {
+    const mapId = req.params.id;
+    const userId = 1;
+    const lat = req.body.lat;
+    console.log(req.body);
+    const lng = req.body.lng;
+    const name = req.body.name || 'untitled'
+    knex('markers')
+      .insert({
+        name: name,
+        lat: lat,
+        lng: lng,
+        user_id: userId,
+        map_id: mapId
+      })
+      .returning('id')
+      .then(function (id) {
+        res.json({ id: id[0] })
+      })
+  })
+
   return router;
 }
 
