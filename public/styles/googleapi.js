@@ -1,3 +1,5 @@
+
+
 var map;
 var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -201,15 +203,24 @@ $('#mapform').on('submit', function (event){
   //basket.push(mapname)
   mapdesc = $('#map_description').val();
   //basket.push(mapdesc)
-  console.log(`MAP OBJECT: ${map.getCenter()}`);
-  const lat1 = map.getCenter().lat();
-  const lng1 = map.getCenter().lng();
-  console.log(`LAT OBJECT: ${lat1}`);
-  console.log(`LNG OBJECT: ${lng1}`);
-  console.log(map.getZoom())
+  // console.log(`MAP OBJECT: ${map.getCenter()}`);
+  // const lat1 = map.getCenter().lat();
+  // const lng1 = map.getCenter().lng();
+  // console.log(`LAT OBJECT: ${lat1}`);
+  // console.log(`LNG OBJECT: ${lng1}`);
+  // console.log(map.getZoom())
   //console.log(lng1);
   console.log(mapdesc);
-  addnewMap();
+  var captureMap = {
+    //id:, ---> created by the database 
+    name: mapname,
+    description: mapdesc,
+    lat: map.getCenter().lat(), 
+    lng: map.getCenter().lng(),
+    zoom: map.getZoom(),
+    user_id: 1,
+  }
+  addnewMap(captureMap);
 });
 
 // console.log(`tttessssttting name: ${mapname}`)
@@ -222,31 +233,25 @@ $('#mapform').on('submit', function (event){
 // }
 
 
-function addnewMap(input){
+
+
+function addnewMap(inputData){
   const mapdetails = { 
     url: "http://localhost:8080/api/maps",
     method: 'POST',
-    data: {
-      //id:, ---> created by the database 
-      name: mapname,
-      description: mapdesc,
-      lat: getlat, 
-      lng: getlng,
-      zoom: 11,
-      user_id: 1,
-    }
+    data: inputData
   };
   
   $.ajax(mapdetails)
     .done(function (response) {
       //addnewMap(response)
       console.log('ajax inside test')
-      console.log(`tttessssttting name: ${getlng}`)
-      console.log(typeof(getlng))
-      console.log(Number.parseFloat(getlng))
-      console.log(`tttessssttting name: ${getlat}`)
-      console.log(typeof(getlat))
-      console.log(Number.parseFloat(getlat))
+      // console.log(`tttessssttting name: ${getlng}`)
+      // console.log(typeof(getlng))
+      // console.log(Number.parseFloat(getlng))
+      // console.log(`tttessssttting name: ${getlat}`)
+      // console.log(typeof(getlat))
+      // console.log(Number.parseFloat(getlat))
     })
     .fail(function(error){
       console.log('ajax fail')
