@@ -36,17 +36,19 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
+    <link rel="stylesheet" type="text/css" href="../styles/fsass.css"/>
+
   </head>
 
-  <body>
+  <body class="mappage">
     <% include ./partials/header %>
     <section class="main body"> <!-- this is doing weird jumpy things on the windos stretch--- evne though it's set to container and not container-fluid. needs investigation-->
-      <div class="container"> 
-        <div class="row mx-2">
-          <div class="col-8">
+      <div class="container ml-0 " > 
+        <div class="row mx-2 pt-4 containermap">
+          <div class="col-9">
             <div class="mapcontainer" id="map"></div>
           </div>
-          <div class="col-4"> 
+          <div class="col-3"> 
             <form class="needs-validation" id="mapform" novalidate>
               <div class="form-row">
                 <div class="mapnamearea"> 
@@ -65,7 +67,7 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary" type="submit" id="bt_submit" >Submit form</button>
+              <button class="btn btn-dark" type="submit" id="bt_submit" >Save Map</button>
             </form>
               
 
