@@ -26,21 +26,19 @@ $(document).ready(function() {
           // } else if (loggingText.length === 0) {
           //   alert('There is NOTHING!') 
           // } else {
-            $.ajax({
-              type: "GET",
-              url: "api/users/login/Bob",
-              success: function(data, textStatus) {
-              
-                // data.redirect contains the string URL to redirect to
-                window.location.href = "/api/maps/allmaps";
-              }
-            })
-            // .done(results => { 
-              
-            //   // console.log('Results:', results) 
-            // })
-
-
-          //}
+                $.ajax({
+                  type: "GET",
+                  url: "api/users/login/Bob",
+                  success: function(data, textStatus) {
+                  
+                    // data.redirect contains the string URL to redirect to
+                    window.location.href = "/api/maps/allmaps";
+                  }
+                })
+                // .done(results => { 
+                  
+                //   // console.log('Results:', results) 
+                // })
+          // }
         })
     });
