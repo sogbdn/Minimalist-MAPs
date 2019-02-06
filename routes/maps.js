@@ -14,6 +14,16 @@ module.exports = (knex) => {
       });
   });
 
+  router.get('/:id', (req, res) => {
+    knex
+      .from('maps')
+      .where('maps.id', '=', req.params.id)
+      .then((map) => {
+        console.log(map);
+        res.render('map', { map: map[0] })
+      })
+  })
+
   router.get('/', (req, res) => {
     res.render('createmap');
   });
@@ -32,7 +42,7 @@ module.exports = (knex) => {
       })
       .then(function (input) { //change veriable names
         console.log('donesql');
-        console.log("post route STUFF : "+input);
+        console.log("post route STUFF : " + input);
         res.send(input);
       })
     // .into('maps')
