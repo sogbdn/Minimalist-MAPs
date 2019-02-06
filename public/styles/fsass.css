@@ -1,0 +1,46 @@
+body.mappage{
+  background: #A7C4C3;
+  background: -webkit-linear-gradient(top left, #A7C4C3, #77CAFB);
+  background: -moz-linear-gradient(top left, #A7C4C3, #77CAFB);
+  background-image: linear-gradient(top left, #A7C4C3, #77CAFB);
+}
+
+body{
+  background-color:#f8f9fa;
+}
+
+p {
+  color: #333;
+}
+
+h1.jumbotron-heading{
+  color: #ececec;
+  font-weight: 200;
+}
+
+.navbar-light .navbar-brand{
+  color:#9fb8ad;
+}
+
+
+.jumbotron {
+  /*background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);*/
+  background: #A7C4C3;
+  background: -webkit-linear-gradient(top left, #A7C4C3, #77CAFB);
+  background: -moz-linear-gradient(top left, #A7C4C3, #77CAFB);
+  background-image: linear-gradient(top left, #A7C4C3, #77CAFB);
+}
+
+.btn {
+  margin-top: 0.5em;
+  margin-left: 0em;
+  
+}
+
+.mainbody {
+  height:900px;
+}
+
+.containermap {
+  height: 600px;
+}

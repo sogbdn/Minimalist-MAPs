@@ -7,28 +7,37 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   
-
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-  <script type="text/javascript" src="/scripts/loguser.js"></script>
   <!-- Optional JavaScript for Bootstrap components -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-
+  
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
     crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="./styles/custom.scss"/>
+
+   <link rel="stylesheet" type="text/css" href="./styles/fsass.css"/>
+
+  
+
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/loguser.js"></script>
 </head>
 
 <body>
   <% include ./partials/header-loginpage %>
   <section class="jumbotron text-center">
     <div class="container">
-      <h1 class="jumbotron-heading">MINiMaliSt MAps</h1>
-      <p class="lead text-muted">Customizable maps remembering spaces of rest and respite in the city </p>
+      <h1 class="jumbotron-heading">Minimalist MAPs</h1>
+      <p class="lead text-muted">for remembering spaces of rest and respite in the city </p>
       <p>
         <!-- <a href="https://getbootstrap.com/docs/4.0/examples/album/#" class="btn btn-primary my-2">Main call to action</a>
                 <a href="https://getbootstrap.com/docs/4.0/examples/album/#" class="btn btn-secondary my-2">Secondary action</a> -->
@@ -37,28 +46,20 @@
   </section>
   <section id="login area"></section>
   <div class="container">
-    
-    <!--Form-->
- 
       <div class="form-group">
-        <form method="POST">
+
+        <form method= "POST" action= "/api/users/login/">
           <label for="exampleInputEmail1">Name</label>
-          <input type="text" class="form-control" id="username" placeholder="Please enter name">
+          <input name = "loginName" type="text" class="form-control" id="username" placeholder="Please enter name">
         
           <small id="emailHelp" class="form-text text-muted">This name will only be used to associate that id with maps you created and contributed to</small>
           <button type="submit" class="btn btn-outline-info">Submit</button>
       </form>
-      </div>
+
+    </div>
       
   </div>
   </section>
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
 </body>
 
 </html>
