@@ -5,8 +5,8 @@ var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 let labelIndex = 0; // this is the index of the abc assignments, but it's not being emptied when the array is deleted
 var infoWindow;
-var basket = []
 //let markerlatlong = []
+
 
 //originally montreal was being used as the static start location--- test location shifts to geolocation. to test this function i have the map first load in newzealand. where i'd rather be.
 
@@ -24,7 +24,7 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow;
   infoWindow.open(map);
-  infoWindow.setContent(`<br><b><li>Save Your Map</li><li>click on map to add marker</li><li>click on marker to add and save details</li><li>drag marker to reposition</li><br></b></p>`);
+  infoWindow.setContent(`<br><li><b>click on map to add marker</li><li>click on marker to add and save details</li><li>drag marker to reposition</li><br><p align='right'>Save Your Map to the Right ></b></p>`);
   infoWindow.setPosition(starterlocation);
 
   if (navigator.geolocation) {
@@ -40,9 +40,9 @@ function initMap() {
     });
   } else {
     handleLocationError(false, infoWindow, map.getCenter());
-    basket.push(map.coords.latitude)
+    
     console.log(map.coords.latitude)
-    basket.push(map.coords.longitude)
+    
     console.log(map.coords.longitude)
   }
 
@@ -51,51 +51,36 @@ function initMap() {
 
   map.addListener('click', function(event) {
     var marker = addMarker(event.latLng);
-    console.log(`MARKERRRRR: ${marker}`)
-    console.log(event.latLng);
-    console.log(event.latLng.lat());
-    console.log(event.latLng.lng());
-    console.log(`MAP ID------: ${map.id}`);
-    //console.log(typeof map.id)
+    // var markerdetails = {
+    //   url: 'http://localhost:8080/api/markers'
+    //   method: 'POST',
+    //   data: {
+    //     lat: event.latLng.lat(),
+    //     lng: event.latLng.lng(),
+    //     map_id: map.id;
+    //   }
 
-    var markerdetails = {
-      url: `http://localhost:8080/api/maps/${map.id}/markers`,
-      method: 'POST',
-      data: {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-        map_id: map.id
-      }
-    };
-    //console.log(`MARKERRRRR: ${marker}`)
-
-      $.ajax(markerdetails)
-    .done(function (response) {
-      //console.log(id);
-      //id is actually an object
-      console.log('adding marker to database') 
+    //   $.ajax(markerdetails)
+    // .done(function (id) {
+    //   marker.id = id
       
-      marker.id = response.id;
-      console.log(`marker-------- ID------: ${marker.id}`);
-      //posts to backend
-      //map.id = 1;
-      //backend sends back id
-      //addnewMap(response)
-          
-    })
-    .fail(function(error){
-      console.log('ajax fail')
-      console.log(error);
-    })
-    .always(function(){
-      console.log('ajax always test')
-    });
-  });
-};
+    //   //posts to backend
+    //   //map.id = 1;
+    //   //backend sends back id
+    //   //addnewMap(response)
+    //   console.log('adding marker to database')     
+    // })
+    // .fail(function(error){
+    //   console.log('ajax fail')
+    //   console.log(error);
+    // })
+    // .always(function(){
+    //   console.log('ajax always test')
+    // });
 
-    
-  
-//}
+    });
+  }
+
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -112,77 +97,43 @@ function addMarker(location) {
     position: location,
     map: map,
     title: 'Hello World!',
-    //label: labels[labelIndex++ % labels.length],
-    draggable: true
+    label: labels[labelIndex++ % labels.length],
+    draggable:true,
   });
 
   markers.push(marker); // this is the array that all the marker points are being pushed too.
-  // console.log(markers); // this is the complex object 
-  // console.log(location.lat());
-  // console.log(location.lng());
+  console.log(markers); // this is the complex object 
+  console.log(location.lat());
+  console.log(location.lng());
 
   //this is the popup window and form for each marker. 
 
-  // var contentString = 
-  // `<div id="content"><div id="table">
-  // <table>
-  // <tr>
-  // <form class="infoWindow" id="info-window">
-  // <td>Name:</td> 
-  // <td><input type='text' id='marker_name'/> </td> 
-  // </tr>
-  // <tr>
-  // <td>Description:</td> 
-  // <td><input type='text' id='marker_description'/> </td> 
-  // </tr>
-
-  //   <tr><td></td><td><input type='submit' value='Save'/></td></tr>
-  // </table>
-  // </form>
-  // </div></div>`;
-
- 
+  var contentString = 
+  `<div id="content"><div id="table">
+  <table>
+  <tr>
+  <form class="infoWindow" id="info-window">
+  <td>Name:</td> 
+  <td><input type='text' id='marker_name'/> </td> 
+  </tr>
+  <tr>
+  <td>Description:</td> 
+  <td><input type='text' id='marker_description'/> </td> 
+  </tr>
+  
+    <tr><td></td><td><input type='submit' value='Save'/></td></tr>
+  </table>
+  </form>
+  </div></div>`;
 
 //----->>> this one works but is not conditional to the state of other windows-------> 
 
   marker.addListener('click', function() {
-
-    var contentString = 
-    `<div id="content"><form class="infoWindow" id="info-window">Name:<br><input type='text' id='marker_name'/><br>Description:<input type='text' id='marker_description'/> <br><input type='submit' value='Save'/><input type="hidden" id="hidden_value" value = "${this.id}"></hidden></form></div>`
     
     /*var*/ infowindow = new google.maps.InfoWindow({
       content: contentString//dynamicinfobox//
     });
-
-    google.maps.event.addListener(infowindow, 'domready', function() {
-      // whatever you want to do once the DOM is ready
-            document.getElementById('info-window').addEventListener('submit', function(event) {
-              event.preventDefault();
-              console.log("submit info window")
-              console.log($(this));
-              const markname = $(this).find("input[id ='marker_name']").val();
-              
-              //$('#wrapper').find("input[value='"+value+"']").attr('id');
-              const descname = $(this).find("input[id ='marker_description']").val();
-              const markerid = $(this).find("input[id ='hidden_value']").val();
-              // console.log(markname);
-              // console.log(descname);
-              // console.log(`-------${markid}----`);
-
-
-              var captureMarker = {
-                //id:, ---> created by the database 
-                name: markname,
-                description: descname,
-                //markerid: markid
-              }
-              addnewMarker(captureMarker, markerid);
-            })
-          });
-
     infowindow.open(map, marker);
-    var idbox = $('<input>').attr('type','hidden').attr('value', this.id)
-    //$('#info-window').prepend(`<h5>testing</h5>`);
     //console.log('clicking');
   });
 
@@ -195,7 +146,7 @@ function addMarker(location) {
   //   infowindow.open(map, this);
   //   //console.log('clicking');
   // });
-  return marker;
+
 
 }
 
@@ -272,8 +223,6 @@ $('#mapform').on('submit', function (event){
     zoom: map.getZoom(),
     user_id: 1,
   }
-
-  console.log('newmap', captureMap)
   addnewMap(captureMap);
 });
 
@@ -281,17 +230,14 @@ $('#mapform').on('submit', function (event){
 $('#info-window').on('submit', function (event){
   event.preventDefault();
   var markname = $('#marker_name').val();
-  console.log(markname);
   var markdesc = $('#marker_description').val();
-  console.log(markdesc);
   var captureMap = {
     //id:, ---> created by the database 
     name: markname,
     description: markdesc,
-
-    // lat: map.getCenter().lat(), 
-    // lng: map.getCenter().lng(),
-    // zoom: map.getZoom(),
+    lat: map.getCenter().lat(), 
+    lng: map.getCenter().lng(),
+    zoom: map.getZoom(),
     user_id: 1,
   }
   addnewMap(captureMap);
@@ -308,8 +254,9 @@ function addnewMap(inputData){
   
   $.ajax(mapdetails)
     .done(function (response) {
-      map.id = response[0];
-      console.log(response)
+      map.id = 1;//////hardcoded
+      //backend sends back id
+      //addnewMap(response)
       console.log('ajax inside test')     
     })
     .fail(function(error){
@@ -321,25 +268,38 @@ function addnewMap(inputData){
     });
 }
 
-//--------> AJAX to send marker data
 
-function addnewMarker(inputData, markerid){
-  const markerdetails = { 
-    url: `http://localhost:8080/api/markers/${markerid}`,
-    method: 'POST',
-    data: inputData
-  };
-  
-  $.ajax(markerdetails)
-    .done(function (response) {
-      console.log(response)
-      console.log('ajax inside test')     
-    })
-    .fail(function(error){
-      console.log('ajax fail')
-      console.log(error);
-    })
-    .always(function(){
-      console.log('ajax always test')
-    });
+//-------> AJAX to GET data
+
+function loadMap(){
+  const options = { 
+    url: "http://localhost:8080/tweets", //----> have to get route to indiv route form Sonja
+    method: 'GET',
+    dataType: 'json'
+  }
+  $.ajax(options)
+  .done(function (response) {
+    renderMap(response);
+  }).fail(function(error){
+  }).always(function(){
+  });
 }
+loadMap();
+
+
+
+/*function renderMap (maps) {
+  $('#map').prepend(
+    `<article class="box2">
+    <header id ="titlespace2">
+      <img class="userlogo" src="${tweets.user.avatars.small}">
+      <h2 id="username">${tweets.user.name}</h2>
+      <span class="id">${tweets.user.handle}</span>
+    </header>
+    <div class="tweetresponse">${escape(tweets.content.text)}
+    </div>
+    <footer id="tweetfooter"><span class="leftside"><p class="tinytype">${timestamp(tweets.created_at)}</p></span><span class="rightside"><img class="flaglikeretweet" src="/images/likeretweet.gif"></span></footer>
+    </article>`
+  );
+}
+*/

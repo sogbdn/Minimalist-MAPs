@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)https://getbootstrap.com/docs/4.0/examples/album/ -->
 <html lang="en">
 
 <head>
@@ -49,13 +48,15 @@
                     <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                   </div>
-                  <small class="text-muted">9 mins</small>
                 </div>
               </div>
-            </div>
+              <button class="btn btn-dark" type="submit" id="bt_submit" >Save Map</button>
+            </form>
+             
+          </div>
           </div>
           <% } %>
-        </div>  
+          
       </div>
     </div>
 
@@ -76,12 +77,8 @@
   <!-- <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
 
 
-  <svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none"
-    style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;">
-    <defs>
-      <style type="text/css"></style>
-    </defs><text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text>
-  </svg>
-</body>
+    <script src="/styles/googleapi-post.js" type="text/javascript"></script>
 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdfEfemoHEi51ay3MMzb0RhMHv3CLVFJU&callback=initMap"></script>
+  </body>
 </html>
