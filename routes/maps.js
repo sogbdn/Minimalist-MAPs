@@ -77,7 +77,7 @@ module.exports = (knex) => {
       .where('user_id', req.params.id)
       .select('*')
       .then((results) => {
-        res.render('display_mymaps', { results });
+        res.render('mymaps', { results });
       });
   });
 
