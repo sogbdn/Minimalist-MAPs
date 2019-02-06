@@ -20,7 +20,7 @@ module.exports = (knex) => {
       .then((results) => {
         if (results.length !== 0) {
           //checking if the results (user name) exists 
-          console.log('Results: ', results);
+          //console.log('Results: ', results);
           req.session.user_id = results[0].id;
           req.session.user_name = results[0].name;
           res.redirect(`/api/maps/users/${results[0].id}/`); //change to myMaps?
@@ -29,18 +29,18 @@ module.exports = (knex) => {
           //insert into knex
           //insert into users the user name and set it from the form
           //look up documentation for insert 
-          console.log(loginName);
+          //console.log(loginName);
           knex('users')
             .insert({ name: loginName })
             .returning('id')
             .then((id) => { //results is the whole entery. the results of the query
               //user has been created, so must set the cookie 
-              console.log('Insert Id: ', id);
+              //console.log('Insert Id: ', id);
               req.session.user_id = id[0];
               req.session.user_name = loginName;
               res.redirect("/api/maps/");
             })
-        } //maybe error
+        } 
       });
   });
 
