@@ -6,7 +6,11 @@ body.mappage{
 }
 
 body{
-  background-color:#f8f9fa;
+  background-color:#fff;
+}
+
+#whitecloud {
+  background-color: #A7C4C3;
 }
 
 p {

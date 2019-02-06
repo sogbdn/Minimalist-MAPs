@@ -41,11 +41,18 @@
 
   <body class="mappage">
     <% include ./partials/header %>
-    <section class="main body"> <!-- this is doing weird jumpy things on the windos stretch--- evne though it's set to container and not container-fluid. needs investigation-->
+    <section class="main body"> 
       <div class="container ml-0 " > 
         <div class="row mx-2 pt-4 containermap">
           <div class="col-9">
+          <input id="pac-input" class="controls" type="text"
+        placeholder="Enter a location">
             <div class="mapcontainer" id="map"></div>
+            <div id="infowindow-content">
+      <span id="place-name"  class="title"></span><br>
+      Place ID <span id="place-id"></span><br>
+      <span id="place-address"></span>
+    </div>
           </div>
           <div class="col-3"> 
             <form class="needs-validation" id="mapform" novalidate>
