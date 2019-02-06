@@ -5,7 +5,7 @@ var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 let labelIndex = 0; 
 var infoWindow;
-var basket = []
+
 
 
 function initMap() {
@@ -20,7 +20,7 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow;
   infoWindow.open(map);
-  infoWindow.setContent(`<br><b><li>Save Your Map</li><li>click on map to add marker</li><li>click on marker to add and save details</li><li>drag marker to reposition</li><br></b></p>`);
+  infoWindow.setContent(`<p align="center">Viewing Current Location!</p><b><li>Save Your Map</li><li>click on map to add marker</li><li>click on marker to add and save details</li><li>drag marker to reposition</li></b></p>`);
   infoWindow.setPosition(starterlocation);
 
   if (navigator.geolocation) {
@@ -29,8 +29,6 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      // console.log(position.coords.latitude)
-      // console.log(map.getZoom())
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -47,12 +45,6 @@ function initMap() {
 
   map.addListener('click', function(event) {
     var marker = addMarker(event.latLng);
-    console.log(`MARKERRRRR: ${marker}`)
-    console.log(event.latLng);
-    console.log(event.latLng.lat());
-    console.log(event.latLng.lng());
-    console.log(`MAP ID------: ${map.id}`);
-    //console.log(typeof map.id)
 
     var markerdetails = {
       url: `http://localhost:8080/api/maps/${map.id}/markers`,
@@ -63,83 +55,43 @@ function initMap() {
         map_id: map.id
       }
     };
-    //console.log(`MARKERRRRR: ${marker}`)
 
-      $.ajax(markerdetails)
-    .done(function (response) {
-      //console.log(id);
-      //id is actually an object
-      console.log('adding marker to database') 
-      
+    $.ajax(markerdetails)
+    .done(function (response) {  
       marker.id = response.id;
       console.log(`marker-------- ID------: ${marker.id}`);
-      //posts to backend
-      //map.id = 1;
-      //backend sends back id
-      //addnewMap(response)
-          
     })
     .fail(function(error){
-      console.log('ajax fail')
       console.log(error);
     })
     .always(function(){
-      console.log('ajax always test')
+     
     });
   });
 };
 
-    
-  
-//}
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
-    'Error: The Geolocation service failed.' :
-    'Error: Your browser doesn\'t support geolocation.');
+    `Error: The Geolocation service failed.` :
+    `<br><b><li>Save Your Map</li><li>click on map to add marker</li><li>click on marker to add and save details</li><li>drag marker to reposition</li><br></b></p>`
+    );
   infoWindow.open(map);
 }
 
-
-// Adds a marker to the map and push to the array.
+// Adds a marker to the map and push to the array.// 
 function addMarker(location) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
     title: 'Hello World!',
-    //label: labels[labelIndex++ % labels.length],
+    //label: labels[labelIndex++ % labels.length],//this was for assigning abcs for everything
     draggable: true
   });
 
   markers.push(marker); // this is the array that all the marker points are being pushed too.
-  // console.log(markers); // this is the complex object 
-  // console.log(location.lat());
-  // console.log(location.lng());
-
-  //this is the popup window and form for each marker. 
-
-  // var contentString = 
-  // `<div id="content"><div id="table">
-  // <table>
-  // <tr>
-  // <form class="infoWindow" id="info-window">
-  // <td>Name:</td> 
-  // <td><input type='text' id='marker_name'/> </td> 
-  // </tr>
-  // <tr>
-  // <td>Description:</td> 
-  // <td><input type='text' id='marker_description'/> </td> 
-  // </tr>
-
-  //   <tr><td></td><td><input type='submit' value='Save'/></td></tr>
-  // </table>
-  // </form>
-  // </div></div>`;
-
- 
-
-//----->>> this one works but is not conditional to the state of other windows-------> 
+  
 
   marker.addListener('click', function() {
 
