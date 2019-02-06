@@ -14,6 +14,17 @@ module.exports = (knex) => {
       });
   });
 
+  router.get('/my', (req, res) => {
+    const userid = req.session.user_id;
+    knex
+      .select("*")
+      .from('maps')
+      .where("maps.user_id", "=", userid)
+      .then((results) => {
+        res.render('mymaps', { results });
+      });
+  });
+
   router.get('/:id', (req, res) => {
     knex
       .from('maps')
