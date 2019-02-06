@@ -9,6 +9,7 @@ module.exports = (knex) => {
     knex
       .select("*")
       .from("maps")
+      .orderBy("id", "desc") 
       .then((results) => {
         res.render('allmaps', { results });
       });
