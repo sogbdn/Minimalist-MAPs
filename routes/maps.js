@@ -26,14 +26,25 @@ module.exports = (knex) => {
   });
 
   router.get('/:id', (req, res) => {
-    knex
-      .from('maps')
-      .where('maps.id', '=', req.params.id)
-      .then((map) => {
-        console.log(map);
-        res.render('map', { map: map[0] })
-      })
-  })
+    const {id} = req.params;
+    
+    Promise.all([
+      knex
+        .select('*')
+        .from('maps')
+        .where('maps.id',id),
+        knex
+          .select('*')
+          .from('markers')
+          .where('markers.map_id', id),
+    ]).then(([[map],markers]) => {
+      const templateVars = {map, markers};
+      //console.log(map, markers)
+      console.log(templateVars);
+      res.render('map_show', templateVars);
+    });
+  });
+
 
   router.get('/', (req, res) => {
     res.render('createmap');

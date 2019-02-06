@@ -13,6 +13,10 @@ p {
   color: #333;
 }
 
+h3 {
+  color:#ececec;
+}
+
 h1.jumbotron-heading{
   color: #ececec;
   font-weight: 200;
@@ -20,6 +24,10 @@ h1.jumbotron-heading{
 
 .navbar-light .navbar-brand{
   color:#9fb8ad;
+}
+
+label {
+  color: #fff;
 }
 
 
