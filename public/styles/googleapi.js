@@ -218,7 +218,7 @@ $('#mapform').on('submit', function (event){
     lat: map.getCenter().lat(), 
     lng: map.getCenter().lng(),
     zoom: map.getZoom(),
-    user_id: 1,
+  
   }
 
   console.log('newmap', captureMap)
@@ -235,12 +235,7 @@ $('#info-window').on('submit', function (event){
   var captureMap = {
     //id:, ---> created by the database 
     name: markname,
-    description: markdesc,
-
-    // lat: map.getCenter().lat(), 
-    // lng: map.getCenter().lng(),
-    // zoom: map.getZoom(),
-    user_id: 1,
+    description: markdesc
   }
   addnewMap(captureMap);
 });

@@ -9,6 +9,7 @@ module.exports = (knex) => {
     knex
       .select("*")
       .from("maps")
+      .orderBy("id", "desc") 
       .then((results) => {
         res.render('allmaps', { results });
       });
@@ -52,6 +53,7 @@ module.exports = (knex) => {
 
   router.post('/', (req, res) => {
     console.log(req.body);
+    console.log('user id --------', req.session.user_id);
     knex('maps')
       .returning('id')
       .insert({
@@ -60,7 +62,7 @@ module.exports = (knex) => {
         lat: req.body.lat,
         lng: req.body.lng,
         zoom: req.body.zoom,
-        user_id: req.body.user_id
+        user_id: req.session.user_id
       })
       .then(function (input) { //change veriable names
         console.log('donesql');
@@ -83,7 +85,8 @@ module.exports = (knex) => {
 
   router.post('/:id/markers', (req, res) => {
     const mapId = req.params.id;
-    const userId = 1;
+    console.log('user Id', req.session.user_id);
+    const userId = req.session.user_id;
     const lat = req.body.lat;
     console.log(req.body);
     const lng = req.body.lng;
