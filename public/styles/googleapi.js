@@ -13,9 +13,7 @@ var basket = []
 function initMap() {
   //var montreal = {lat: 45.496338, lng: -73.570732};
   var starterlocation = {lat: 45.496338, lng: -73.570732};
-// get map latlng ---> console.log(location.lat());console.log(location.lng());
 
-  // this was where i tried to create an array of static maker locations, that would load at initialization. but it only works on the first called marker.
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
