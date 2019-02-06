@@ -3,12 +3,10 @@
 var map;
 var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-let labelIndex = 0; // this is the index of the abc assignments, but it's not being emptied when the array is deleted
+let labelIndex = 0; 
 var infoWindow;
 var basket = []
-//let markerlatlong = []
 
-//originally montreal was being used as the static start location--- test location shifts to geolocation. to test this function i have the map first load in newzealand. where i'd rather be.
 
 function initMap() {
   //var montreal = {lat: 45.496338, lng: -73.570732};
