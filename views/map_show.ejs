@@ -95,7 +95,7 @@
 
 
 
-          const infoWindow = new google.maps.InfoWindow({content: `<form id="info-window"><h5>${markerItem.name}</h5> <input type='hidden' value='${marker.id}'><input type='submit' value='save'></form>`});
+          const infoWindow = new google.maps.InfoWindow({content: `<form id="info-window"><br><h6><u>${markerItem.name}</u></h6><p>- ${markerItem.address}<p><input type='hidden' value='${marker.id}'></form>`});
 
 
           marker.addListener('click', function(){

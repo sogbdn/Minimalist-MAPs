@@ -86,7 +86,7 @@ function addMarker(location) {
     position: location,
     map: map,
     title: 'Hello World!',
-    //label: labels[labelIndex++ % labels.length],//this was for assigning abcs for everything
+    label: labels[labelIndex++ % labels.length],//this was for assigning abcs for everything
     draggable: true
   });
 
