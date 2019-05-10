@@ -28,6 +28,6 @@
 - Node 5.10.x or above
 - NPM 3.8.x or above
 
-## Screenshots
+# Screenshots
 
 !["Screenshots of Front page, Map to customize, Maps collection"](https://github.com/sogbdn/midterm_project/blob/master/docs/Screenshot%20from%20MiniMap.png) 
