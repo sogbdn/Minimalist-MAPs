@@ -27,3 +27,7 @@
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+
+## Screenshots
+
+![Front page, map to customize, maps collection](file:///home/sonia/Pictures/Screenshot%20from%20MiniMap.png) 
