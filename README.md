@@ -30,4 +30,4 @@
 
 ## Screenshots
 
-![Front page, map to customize, maps collection](file:///home/sonia/Pictures/Screenshot%20from%20MiniMap.png) 
+!["Screenshots of Front page, Map to customize, Maps collection"](https://github.com/sogbdn/midterm_project/blob/master/docs/Screenshot%20from%20MiniMap.png) 
